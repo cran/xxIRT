@@ -13,7 +13,7 @@ estimate.item.mmle(u, model = "3PL", iteration = 100, delta = 0.01,
   a.bound = 2, b.bound = 3.5, c.bound = 0.25, diagnose = FALSE)
 
 estimate.item.bme(u, model = "3PL", a.mu = 0, a.sig = 0.2, b.mu = 0,
-  b.sig = 1, c.alpha = 5, c.beta = 23, iteration = 100, delta = 0.01,
+  b.sig = 1, c.alpha = 5, c.beta = 43, iteration = 100, delta = 0.01,
   a.bound = 2, b.bound = 3.5, c.bound = 0.25, diagnose = FALSE)
 }
 \arguments{
@@ -107,5 +107,12 @@ z <- estimate.theta.mle(x$rsp, y$parameters$a, y$parameters$b, y$parameters$c)
 plot(x$thetas, z, xlim=c(-5, 5), ylim=c(-5, 5), pch=16, col=rgb(.8,.2,.2,.5))
 abline(a=0, b=1, lty=2)
 }
+}
+\seealso{
+Other estimation: \code{\link{estimate.theta.mle}}
+
+Other estimation: \code{\link{estimate.theta.mle}}
+
+Other estimation: \code{\link{estimate.theta.mle}}
 }
 
