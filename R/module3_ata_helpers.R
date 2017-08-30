@@ -17,7 +17,7 @@ ata_append <- function(x, mat, dir, rhs) {
 }
 
 #' @rdname ataHelpers
-#' @description \code{ata_form_index} converts input forms into actual form indeces in LP
+#' @description \code{ata_form_index} converts input forms into actual form indices in LP
 #' @param forms the forms indices
 #' @param collapse \code{TRUE} to collapse forms
 ata_form_index <- function(x, forms, collapse){
@@ -40,7 +40,7 @@ ata_obj_coef <- function(x, coef, compensate){
   if(length(coef) == x$nitem){
     coef <- matrix(coef, nrow=1)
   } else if(is.numeric(coef)) {
-    coef <- irt_stats(irt_model("3pl", theta=coef, items=x$pool), "info")
+    coef <- irt_stats(model_3pl(theta=coef, items=x$pool), "info")
   } else if(is.character(coef) && all(coef %in% colnames(x$pool))) {
     coef <- t(x$pool[, coef])
   } else {

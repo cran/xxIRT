@@ -1,5 +1,5 @@
-#' Compute Root Mean Square Error
-#' @description Compute the root mean squared error (rsme) of two numeric vectors/matrices
+#' Root Mean Square Error
+#' @description compute the root mean squared error of two numeric vectors/matrices
 #' @param x a vector/matrix of numeric values
 #' @param y a vector/matrix of numeric values
 #' @export
@@ -12,15 +12,17 @@ rmse <- function(x, y){
 }
 
 
-#' Count Frequency
-#' @description Count (cumulative) frequency and percentage using user-defined values
-#' @param x a vector being counted
-#' @param val a vector of valid counting values
+#' Frequency
+#' @description computes the frequency and percentage of given values
+#' @param x a vector of raw data
+#' @param val a vector of valid values, \code{NULL} for all values
 #' @examples
+#' freq(sample(1:4, 150, replace=TRUE))
 #' freq(sample(1:4, 150, replace=TRUE), 5:1)
 #' freq(sample(1:4, 150, replace=TRUE), 1:3)
 #' @export
-freq <- function(x, val){
+freq <- function(x, val=NULL){
+  if(is.null(val)) val <- sort(unique(x))
   out <- table(factor(x, levels=val, labels=val))
   out <- data.frame(out)
   colnames(out) <- c("value", "freq")
