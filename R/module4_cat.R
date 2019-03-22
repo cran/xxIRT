@@ -112,7 +112,6 @@ cat_sim <- function(true, pool, ...){
 }
 
 
-
 #' @rdname cat_sim
 #' @description \code{cat_estimate_mle} is the maximum likelihood estimation rule. Use 
 #' \code{map_len} to apply MAP to the first K items and use \code{map_prior} to set the
@@ -130,7 +129,7 @@ cat_estimate_mle <- function(len, theta, stats, admin, pool, opts){
   if(is.null(opts$map_len)) opts$map_len <- 10
   if(is.null(opts$map_prior)) opts$map_prior <- c(0, 1)
   if (len < opts$map_len) priors <- list(t=opts$map_prior) else priors <- NULL
-  with(admin, model_3pl_jmle(u=u, a=a[1:len], b=b[1:len], c=c[1:len], D=opts$D, scale=NULL, priors=priors))$t[1]
+  with(admin, model_3pl_estimate_jmle(u=u, a=a[1:len], b=b[1:len], c=c[1:len], D=opts$D, scale=NULL, priors=priors))$t[1]
 }
 
 #' @rdname cat_sim
@@ -142,7 +141,7 @@ cat_estimate_eap <- function(len, theta, stats, admin, pool, opts){
   eap_sd <- ifelse(is.null(opts$eap_sd), 1, opts$eap_sd)
   u <- stats[1:len, "u"]
   u <- matrix(rep(u, each=2), nrow=2)
-  with(admin, model_3pl_eap_scoring(u=u, a=a[1:len], b=b[1:len], c=c[1:len], D=opts$D))[1]
+  with(admin, model_3pl_eap_scoring(u=u, a=a[1:len], b=b[1:len], c=c[1:len], D=opts$D))$t[1]
 }
 
 #' @rdname cat_sim
@@ -342,10 +341,10 @@ cat_stop_projection <- function(len, theta, stats, admin, pool, opts){
     
     u <- c(stats[1:len, "u"], rep(1, opts$max - len))
     u <- matrix(rep(u, each=2), nrow=2)
-    theta_ub <- with(x$items, model_3pl_jmle(u, a=a, b=b, c=c, D=opts$D, scale=NULL, priors=NULL))$t[1]
+    theta_ub <- with(x$items, model_3pl_estimate_jmle(u, a=a, b=b, c=c, D=opts$D, scale=NULL, priors=NULL))$t[1]
     u <- c(stats[1:len, "u"], rep(0, opts$max - len))
     u <- matrix(rep(u, each=2), nrow=2)
-    theta_lb <- with(x$items, model_3pl_jmle(u, a=a, b=b, c=c, D=opts$D, scale=NULL, priors=NULL))$t[1]
+    theta_lb <- with(x$items, model_3pl_estimate_jmle(u, a=a, b=b, c=c, D=opts$D, scale=NULL, priors=NULL))$t[1]
   } else if(method == 'diff'){
     if(is.null(opts$proj_width)) opts$proj_width <- 1.96
     
@@ -358,7 +357,7 @@ cat_stop_projection <- function(len, theta, stats, admin, pool, opts){
     if(is.null(x$items)) stop("Failed to assemble a projection test")
     u <- c(stats[1:len, "u"], rep(1, opts$max - len))
     u <- matrix(rep(u, each=2), nrow=2)
-    theta_ub <- with(x$items, model_3pl_jmle(u, a=a, b=b, c=c, D=opts$D, scale=NULL, priors=NULL))$t[1]
+    theta_ub <- with(x$items, model_3pl_estimate_jmle(u, a=a, b=b, c=c, D=opts$D, scale=NULL, priors=NULL))$t[1]
 
     x <- ata(pool, 1, len=opts$max, 1)
     x <- ata_obj_absolute(x, "b", (theta - opts$proj_width * stats[len, "se"]) * opts$max)
@@ -369,7 +368,7 @@ cat_stop_projection <- function(len, theta, stats, admin, pool, opts){
     if(is.null(x$items)) stop("Failed to assemble a projection test")
     u <- c(stats[1:len, "u"], rep(0, opts$max - len))
     u <- matrix(rep(u, each=2), nrow=2)
-    theta_lb <- with(x$items, model_3pl_jmle(u, a=a, b=b, c=c, D=opts$D, scale=NULL, priors=NULL))$t[1]
+    theta_lb <- with(x$items, model_3pl_estimate_jmle(u, a=a, b=b, c=c, D=opts$D, scale=NULL, priors=NULL))$t[1]
   }
   
   (theta_lb > opts$stop_cut || theta_ub < opts$stop_cut)

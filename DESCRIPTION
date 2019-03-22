@@ -1,24 +1,25 @@
 Package: xxIRT
 Type: Package
 Title: Item Response Theory and Computer-Based Testing in R
-Version: 2.1.1
-Date: 2018-10-1
+Version: 2.1.2
+Date: 2019-3-21
 Authors@R: c(person("Xiao", "Luo", role=c("aut","cre"), email="xluo1986@gmail.com"))
 Author: Xiao Luo [aut, cre]
 Maintainer: Xiao Luo <xluo1986@gmail.com>
-Description: A suite of practical psychometric analysis and research tools of item response 
-    theory, including the 3-parameter-logistic model and the generalized partial 
-    credit model as well as functions to perform: (1) parameter estimation, (2) automated 
-    test assembly, (3) simulation of computerized adaptive testing (CAT), and (4) assembly and 
-    simulation of multistage testing. More documentation at <https://github.com/xluo11/xxIRT>.
+Description: A suite of psychometric analysis tools for research and operation, including:
+    (1) computation of probability, information, and likelihood for the 3PL, GPCM, and GRM;
+    (2) parameter estimation using joint or marginal likelihood estimation method;
+    (3) simulation of computerized adaptive testing using built-in or customized algorithms;
+    (4) assembly and simulation of multistage testing. 
+    The full documentation and tutorials are at <https://github.com/xluo11/xxIRT>.
 License: GPL (>= 3)
-Depends: R (>= 3.1.0)
+Depends: R (>= 3.5.0)
 URL: https://github.com/xluo11/xxIRT
 BugReports: https://github.com/xluo11/xxIRT/issues
-Imports: ggplot2, glpkAPI, lpSolveAPI, reshape2, stats, utils
-RoxygenNote: 6.0.1
-Suggests: testthat
+Imports: ggplot2, glpkAPI, lpSolveAPI, reshape2, stats
+RoxygenNote: 6.1.1
+Encoding: UTF-8
 NeedsCompilation: no
-Packaged: 2018-10-02 17:40:08 UTC; Luo.Xiao
+Packaged: 2019-03-21 23:54:08 UTC; xiaoluo
 Repository: CRAN
-Date/Publication: 2018-10-02 18:30:02 UTC
+Date/Publication: 2019-03-22 10:00:03 UTC
